@@ -6,7 +6,7 @@
 import express from 'express';
 import { param, validationResult } from 'express-validator';
 import { requireAuth } from '../middlewares.js';
-import { getCoursesByStudentId, getCourseById } from '../data/courses.js';
+import { courseData } from '../data/index.js';
 import { isValidObjectId } from '../validation.js';
 
 const router = express.Router();
@@ -18,7 +18,7 @@ const router = express.Router();
 router.get('/', requireAuth, async (req, res, next) => {
   try {
     const studentId = req.session.student.id;
-    const courses = await getCoursesByStudentId(studentId);
+    const courses = await courseData.getCoursesByStudentId(studentId);
 
     res.json({
       success: true,
@@ -55,7 +55,7 @@ router.get(
       }
 
       const { courseId } = req.params;
-      const course = await getCourseById(courseId);
+      const course = await courseData.getCourseById(courseId);
 
       if (!course) {
         return res.status(404).json({

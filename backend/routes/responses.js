@@ -6,15 +6,7 @@
 import express from 'express';
 import { body, param, query, validationResult } from 'express-validator';
 import { requireAuth } from '../middlewares.js';
-import {
-  createResponse,
-  getResponseById,
-  getResponsesByQuestionId,
-  updateResponse,
-  deleteResponse,
-} from '../data/responses.js';
-import { getQuestionById } from '../data/questions.js';
-import { createNotification } from '../data/notifications.js';
+import { responseData, questionData, notificationData } from '../data/index.js';
 import { isValidObjectId } from '../validation.js';
 
 const router = express.Router();
@@ -48,7 +40,10 @@ router.get(
       const { questionId } = req.params;
       const { sort = 'newest' } = req.query;
 
-      const responses = await getResponsesByQuestionId(questionId, sort);
+      const responses = await responseData.getResponsesByQuestionId(
+        questionId,
+        sort
+      );
 
       res.json({
         success: true,
@@ -98,23 +93,24 @@ router.post(
       const { questionId, content, isAnonymous = false } = req.body;
       const posterId = req.session.student.id;
 
-      const responseData = {
+      // Build response payload for creation
+      const newResponsePayload = {
         questionId,
         posterId,
         content,
         isAnonymous,
       };
 
-      const newResponse = await createResponse(responseData);
+      const newResponse = await responseData.createResponse(newResponsePayload);
 
       // Create notification for question poster (if not posting to own question)
       try {
-        const question = await getQuestionById(questionId);
+        const question = await questionData.getQuestionById(questionId);
         if (question && question.posterId.toString() !== posterId) {
           const responderName = isAnonymous
             ? 'Someone'
             : req.session.student.firstName;
-          await createNotification({
+          await notificationData.createNotification({
             recipientId: question.posterId.toString(),
             questionId: questionId,
             senderId: posterId,
@@ -172,7 +168,7 @@ router.patch(
       const currentUserId = req.session.student.id;
 
       // Check if response exists and user is the poster
-      const response = await getResponseById(responseId);
+      const response = await responseData.getResponseById(responseId);
       if (!response) {
         return res.status(404).json({
           success: false,
@@ -187,7 +183,10 @@ router.patch(
         });
       }
 
-      const updatedResponse = await updateResponse(responseId, updates);
+      const updatedResponse = await responseData.updateResponse(
+        responseId,
+        updates
+      );
 
       res.json({
         success: true,
@@ -228,7 +227,7 @@ router.delete(
       const currentUserId = req.session.student.id;
 
       // Check if response exists and user is the poster
-      const response = await getResponseById(responseId);
+      const response = await responseData.getResponseById(responseId);
       if (!response) {
         return res.status(404).json({
           success: false,
@@ -243,7 +242,7 @@ router.delete(
         });
       }
 
-      await deleteResponse(responseId);
+      await responseData.deleteResponse(responseId);
 
       res.json({
         success: true,
@@ -286,7 +285,7 @@ router.patch(
       const currentUserId = req.session.student.id;
 
       // Get the response to find the response poster
-      const response = await getResponseById(responseId);
+      const response = await responseData.getResponseById(responseId);
       if (!response) {
         return res.status(404).json({
           success: false,
@@ -294,16 +293,18 @@ router.patch(
         });
       }
 
-      const updatedResponse = await updateResponse(responseId, { isHelpful });
+      const updatedResponse = await responseData.updateResponse(responseId, {
+        isHelpful,
+      });
 
       // Create notification when response is marked as helpful (not unmarked)
       if (isHelpful && response.posterId.toString() !== currentUserId) {
         try {
-          const question = await getQuestionById(
+          const question = await questionData.getQuestionById(
             response.questionId.toString()
           );
           if (question) {
-            await createNotification({
+            await notificationData.createNotification({
               recipientId: response.posterId.toString(),
               questionId: response.questionId.toString(),
               senderId: currentUserId,

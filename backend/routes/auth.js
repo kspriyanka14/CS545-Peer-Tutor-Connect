@@ -6,7 +6,7 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import { body, validationResult } from 'express-validator';
-import { getStudentByEmail } from '../data/students.js';
+import { studentData } from '../data/index.js';
 import { requireAuth } from '../middlewares.js';
 
 const router = express.Router();
@@ -44,7 +44,7 @@ router.post(
       const { universityEmail, password } = req.body;
 
       // Find student by email
-      const student = await getStudentByEmail(universityEmail);
+      const student = await studentData.getStudentByEmail(universityEmail);
       if (!student) {
         return res.status(401).json({
           success: false,

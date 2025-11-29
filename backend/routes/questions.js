@@ -6,13 +6,7 @@
 import express from 'express';
 import { body, param, query, validationResult } from 'express-validator';
 import { requireAuth } from '../middlewares.js';
-import {
-  createQuestion,
-  getQuestionById,
-  getQuestionsByCourseId,
-  updateQuestion,
-  deleteQuestion,
-} from '../data/questions.js';
+import { questionData } from '../data/index.js';
 import { isValidObjectId } from '../validation.js';
 
 const router = express.Router();
@@ -44,7 +38,7 @@ router.get(
 
       const { questionId } = req.params;
 
-      const question = await getQuestionById(questionId);
+      const question = await questionData.getQuestionById(questionId);
       if (!question) {
         return res.status(404).json({
           success: false,
@@ -93,7 +87,10 @@ router.get(
       const { courseId } = req.params;
       const { sort = 'newest' } = req.query;
 
-      const questions = await getQuestionsByCourseId(courseId, sort);
+      const questions = await questionData.getQuestionsByCourseId(
+        courseId,
+        sort
+      );
 
       res.json({
         success: true,
@@ -149,7 +146,8 @@ router.post(
       const { courseId, title, content, isAnonymous = false } = req.body;
       const posterId = req.session.student.id;
 
-      const questionData = {
+      // Build question payload for creation
+      const newQuestionPayload = {
         courseId,
         posterId,
         title,
@@ -157,7 +155,7 @@ router.post(
         isAnonymous,
       };
 
-      const newQuestion = await createQuestion(questionData);
+      const newQuestion = await questionData.createQuestion(newQuestionPayload);
 
       res.status(201).json({
         success: true,
@@ -213,7 +211,7 @@ router.patch(
       const currentUserId = req.session.student.id;
 
       // Check if question exists and user is the poster
-      const question = await getQuestionById(questionId);
+      const question = await questionData.getQuestionById(questionId);
       if (!question) {
         return res.status(404).json({
           success: false,
@@ -228,7 +226,10 @@ router.patch(
         });
       }
 
-      const updatedQuestion = await updateQuestion(questionId, updates);
+      const updatedQuestion = await questionData.updateQuestion(
+        questionId,
+        updates
+      );
 
       res.json({
         success: true,
@@ -269,7 +270,7 @@ router.delete(
       const currentUserId = req.session.student.id;
 
       // Check if question exists and user is the poster
-      const question = await getQuestionById(questionId);
+      const question = await questionData.getQuestionById(questionId);
       if (!question) {
         return res.status(404).json({
           success: false,
@@ -284,7 +285,7 @@ router.delete(
         });
       }
 
-      await deleteQuestion(questionId);
+      await questionData.deleteQuestion(questionId);
 
       res.json({
         success: true,

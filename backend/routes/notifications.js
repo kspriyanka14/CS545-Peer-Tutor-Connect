@@ -6,11 +6,7 @@
 import express from 'express';
 import { param, query, validationResult } from 'express-validator';
 import { requireAuth } from '../middlewares.js';
-import {
-  getNotificationsByStudentId,
-  markNotificationAsRead,
-  markAllNotificationsAsRead,
-} from '../data/notifications.js';
+import { notificationData } from '../data/index.js';
 import { isValidObjectId } from '../validation.js';
 
 const router = express.Router();
@@ -41,7 +37,7 @@ router.get(
       const studentId = req.session.student.id;
       const unreadOnly = req.query.unreadOnly === 'false' ? false : true;
 
-      const notifications = await getNotificationsByStudentId(
+      const notifications = await notificationData.getNotificationsByStudentId(
         studentId,
         unreadOnly
       );
@@ -83,7 +79,9 @@ router.patch(
 
       const { notificationId } = req.params;
 
-      const updatedNotification = await markNotificationAsRead(notificationId);
+      const updatedNotification = await notificationData.markNotificationAsRead(
+        notificationId
+      );
 
       res.json({
         success: true,
@@ -103,7 +101,7 @@ router.patch('/read-all', requireAuth, async (req, res, next) => {
   try {
     const studentId = req.session.student.id;
 
-    const result = await markAllNotificationsAsRead(studentId);
+    const result = await notificationData.markAllNotificationsAsRead(studentId);
 
     res.json({
       success: true,
