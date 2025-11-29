@@ -5,7 +5,16 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { HelpCircle, X } from 'lucide-react';
+import {
+  HelpCircle,
+  X,
+  Search,
+  Star,
+  CheckCircle,
+  Edit,
+  Trash2,
+  Bell,
+} from 'lucide-react';
 
 const HelpWidget = () => {
   const [open, setOpen] = useState(false);
@@ -81,28 +90,90 @@ const HelpWidget = () => {
           }}
         >
           <li>
-            Choose a <strong>course</strong> from "My Courses" to open its
-            discussion board.
+            <strong>Course Selection:</strong> Select a <strong>course</strong>{' '}
+            from "My Courses" to view its Q&A board.
           </li>
           <li>
-            Use <strong>Search</strong> or the <strong>Unanswered</strong>{' '}
-            filter to check if your question already exists.
+            <strong>Finding Questions:</strong> Search{' '}
+            <Search
+              style={{
+                width: '0.875rem',
+                height: '0.875rem',
+                display: 'inline',
+                verticalAlign: 'middle',
+              }}
+            />{' '}
+            by keyword, filter by All/Unanswered/Answered, or sort by
+            Newest/Oldest.
           </li>
           <li>
-            Click <strong>Post Question</strong> to describe what you're stuck
-            on. Be specific so peers can help faster.
+            <strong>Posting Questions:</strong> Click{' '}
+            <strong>Post Question</strong>, add a title and details. Toggle{' '}
+            <strong>Post anonymously</strong> to hide your name.
           </li>
           <li>
-            On a question page, scroll to <strong>Your Response</strong> to post
-            a reply or mark helpful answers.
+            <strong>Answering Questions:</strong> Open any question and click{' '}
+            <strong>Reply</strong> to help a peer. Use{' '}
+            <strong>Post anonymously</strong> if preferred.
           </li>
           <li>
-            Use <strong>Post anonymously</strong> if you don't want your name
-            shown to classmates.
+            <strong>Marking Helpful:</strong> Question posters can mark
+            responses as Helpful{' '}
+            <Star
+              style={{
+                width: '0.875rem',
+                height: '0.875rem',
+                display: 'inline',
+                verticalAlign: 'middle',
+              }}
+            />{' '}
+            to highlight useful answers.
           </li>
           <li>
-            Check the <strong>bell icon</strong> for notifications when someone
-            responds to your questions.
+            <strong>Resolving Questions:</strong> Question posters can click
+            Mark as Resolved{' '}
+            <CheckCircle
+              style={{
+                width: '0.875rem',
+                height: '0.875rem',
+                display: 'inline',
+                verticalAlign: 'middle',
+              }}
+            />{' '}
+            when their question is answered.
+          </li>
+          <li>
+            <strong>Edit & Delete:</strong> Use{' '}
+            <Edit
+              style={{
+                width: '0.875rem',
+                height: '0.875rem',
+                display: 'inline',
+                verticalAlign: 'middle',
+              }}
+            />{' '}
+            to edit or{' '}
+            <Trash2
+              style={{
+                width: '0.875rem',
+                height: '0.875rem',
+                display: 'inline',
+                verticalAlign: 'middle',
+              }}
+            />{' '}
+            to delete your own posts.
+          </li>
+          <li>
+            <strong>Notifications:</strong> Click{' '}
+            <Bell
+              style={{
+                width: '0.875rem',
+                height: '0.875rem',
+                display: 'inline',
+                verticalAlign: 'middle',
+              }}
+            />{' '}
+            to view your notifications.
           </li>
         </ul>
 
@@ -118,8 +189,16 @@ const HelpWidget = () => {
             className="text-teal-800"
             style={{ fontSize: '0.8125rem', lineHeight: '1.5' }}
           >
-            <strong>Tip:</strong> You can reopen this guide anytime using the{' '}
-            <strong>?</strong> button in the bottom-right corner.
+            <strong>Tip:</strong> Reopen this guide anytime using the{' '}
+            <HelpCircle
+              style={{
+                width: '0.875rem',
+                height: '0.875rem',
+                display: 'inline',
+                verticalAlign: 'middle',
+              }}
+            />{' '}
+            button in the bottom-right corner.
           </p>
         </div>
       </div>
@@ -139,7 +218,7 @@ const HelpWidget = () => {
           className="flex items-center justify-between bg-gradient-to-r from-teal-600 to-emerald-600 text-white"
           style={{ padding: '1.25rem' }}
         >
-          <h3 className="font-bold text-xl">Help Guide</h3>
+          <h3 className="font-bold text-xl">How to use Peer-Tutor Connect</h3>
           <button
             onClick={() => setOpen(false)}
             className="text-white hover:bg-white/20 transition-colors"
@@ -153,13 +232,6 @@ const HelpWidget = () => {
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto" style={{ minHeight: 0 }}>
           <div style={{ padding: '1.5rem' }}>
-            <h2
-              className="font-bold text-gray-900 mb-4"
-              style={{ fontSize: '1.125rem' }}
-            >
-              How to use Peer-Tutor Connect
-            </h2>
-
             <ul
               className="text-gray-700 list-disc space-y-3"
               style={{
@@ -170,28 +242,90 @@ const HelpWidget = () => {
               }}
             >
               <li>
-                Choose a <strong>course</strong> from "My Courses" to open its
-                discussion board.
+                <strong>Course Selection:</strong> Select a{' '}
+                <strong>course</strong> from "My Courses" to view its Q&A board.
               </li>
               <li>
-                Use <strong>Search</strong> or the <strong>Unanswered</strong>{' '}
-                filter to check if your question already exists.
+                <strong>Finding Questions:</strong> Search{' '}
+                <Search
+                  style={{
+                    width: '0.875rem',
+                    height: '0.875rem',
+                    display: 'inline',
+                    verticalAlign: 'middle',
+                  }}
+                />{' '}
+                by keyword, filter by All/Unanswered/Answered, or sort by
+                Newest/Oldest.
               </li>
               <li>
-                Click <strong>Post Question</strong> to describe what you're
-                stuck on. Be specific so peers can help faster.
+                <strong>Posting Questions:</strong> Click{' '}
+                <strong>Post Question</strong>, add a title and details. Toggle{' '}
+                <strong>Post anonymously</strong> to hide your name.
               </li>
               <li>
-                On a question page, scroll to <strong>Your Response</strong> to
-                post a reply or mark helpful answers.
+                <strong>Answering Questions:</strong> Open any question and
+                click <strong>Reply</strong> to help a peer. Use{' '}
+                <strong>Post anonymously</strong> if preferred.
               </li>
               <li>
-                Use <strong>Post anonymously</strong> if you don't want your
-                name shown to classmates.
+                <strong>Marking Helpful:</strong> Question posters can mark
+                responses as Helpful{' '}
+                <Star
+                  style={{
+                    width: '0.875rem',
+                    height: '0.875rem',
+                    display: 'inline',
+                    verticalAlign: 'middle',
+                  }}
+                />{' '}
+                to highlight useful answers.
               </li>
               <li>
-                Check the <strong>bell icon</strong> for notifications when
-                someone responds to your questions.
+                <strong>Resolving Questions:</strong> Question posters can click
+                Mark as Resolved{' '}
+                <CheckCircle
+                  style={{
+                    width: '0.875rem',
+                    height: '0.875rem',
+                    display: 'inline',
+                    verticalAlign: 'middle',
+                  }}
+                />{' '}
+                when their question is answered.
+              </li>
+              <li>
+                <strong>Edit & Delete:</strong> Use{' '}
+                <Edit
+                  style={{
+                    width: '0.875rem',
+                    height: '0.875rem',
+                    display: 'inline',
+                    verticalAlign: 'middle',
+                  }}
+                />{' '}
+                to edit or{' '}
+                <Trash2
+                  style={{
+                    width: '0.875rem',
+                    height: '0.875rem',
+                    display: 'inline',
+                    verticalAlign: 'middle',
+                  }}
+                />{' '}
+                to delete your own posts.
+              </li>
+              <li>
+                <strong>Notifications:</strong> Click{' '}
+                <Bell
+                  style={{
+                    width: '0.875rem',
+                    height: '0.875rem',
+                    display: 'inline',
+                    verticalAlign: 'middle',
+                  }}
+                />{' '}
+                to view your notifications.
               </li>
             </ul>
 
@@ -207,8 +341,16 @@ const HelpWidget = () => {
                 className="text-teal-800"
                 style={{ fontSize: '0.9375rem', lineHeight: '1.6' }}
               >
-                <strong>Tip:</strong> You can reopen this guide anytime using
-                the <strong>?</strong> button in the bottom-right corner.
+                <strong>Tip:</strong> Reopen this guide anytime using the{' '}
+                <HelpCircle
+                  style={{
+                    width: '0.875rem',
+                    height: '0.875rem',
+                    display: 'inline',
+                    verticalAlign: 'middle',
+                  }}
+                />{' '}
+                button in the bottom-right corner.
               </p>
             </div>
           </div>
