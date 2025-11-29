@@ -3,12 +3,12 @@
  * Global app header with user info, notifications, logout
  */
 
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { notificationsApi } from "../api/api";
-import { Users, Bell, LogOut } from "lucide-react";
-import NotificationList from "./NotificationList";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { notificationsApi } from '../api/api';
+import { Users, Bell, LogOut } from 'lucide-react';
+import NotificationList from './NotificationList';
 
 const Header = () => {
   const { user, logout } = useAuth();
@@ -19,7 +19,7 @@ const Header = () => {
   // Fetch notification count on mount and poll every 5 seconds
   useEffect(() => {
     // Request notification permission on first load
-    if ("Notification" in window && Notification.permission === "default") {
+    if ('Notification' in window && Notification.permission === 'default') {
       Notification.requestPermission();
     }
 
@@ -32,9 +32,9 @@ const Header = () => {
         setNotificationCount(unreadCount);
 
         // Show browser notifications for new unread notifications
-        if ("Notification" in window && Notification.permission === "granted") {
+        if ('Notification' in window && Notification.permission === 'granted') {
           const lastShownTime =
-            localStorage.getItem("lastNotificationTime") || "0";
+            localStorage.getItem('lastNotificationTime') || '0';
           const newNotifications = fetchedNotifications.filter(
             (n) =>
               !n.isRead &&
@@ -43,9 +43,9 @@ const Header = () => {
 
           // Show browser notifications for new ones (max 3 at a time)
           newNotifications.slice(0, 3).forEach((notification) => {
-            const browserNotif = new Notification("Peer-Tutor Connect", {
+            const browserNotif = new Notification('Peer-Tutor Connect', {
               body: notification.message,
-              icon: "/favicon.ico",
+              icon: '/favicon.ico',
               tag: notification._id,
               requireInteraction: false,
             });
@@ -64,11 +64,11 @@ const Header = () => {
                 new Date(n.createdAt).getTime()
               )
             );
-            localStorage.setItem("lastNotificationTime", latestTime.toString());
+            localStorage.setItem('lastNotificationTime', latestTime.toString());
           }
         }
       } catch (error) {
-        console.error("Failed to fetch notifications:", error);
+        console.error('Failed to fetch notifications:', error);
       }
     };
 
@@ -82,9 +82,9 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate("/");
+      navigate('/');
     } catch (error) {
-      console.error("Logout failed:", error);
+      console.error('Logout failed:', error);
     }
   };
 
@@ -93,24 +93,24 @@ const Header = () => {
       <div
         className="container-centered"
         style={{
-          height: "4rem",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
+          height: '4rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
         }}
       >
         {/* Logo and Title */}
         <div
           className="flex items-center cursor-pointer group"
-          onClick={() => navigate("/courses")}
-          style={{ gap: "1rem" }}
+          onClick={() => navigate('/courses')}
+          style={{ gap: '1rem' }}
         >
           <div
             className="bg-gradient-to-br from-teal-600 to-emerald-600 flex items-center justify-center shadow-md group-hover:shadow-lg transition-all"
-            style={{ width: "3rem", height: "3rem", borderRadius: "0.75rem" }}
+            style={{ width: '3rem', height: '3rem', borderRadius: '0.75rem' }}
           >
             <Users
-              style={{ width: "1.75rem", height: "1.75rem" }}
+              style={{ width: '1.75rem', height: '1.75rem' }}
               className="text-white"
               aria-hidden="true"
             />
@@ -118,13 +118,13 @@ const Header = () => {
           <div className="hidden sm:block">
             <h1
               className="font-bold text-gray-900"
-              style={{ fontSize: "1.25rem", lineHeight: "1.2" }}
+              style={{ fontSize: '1.25rem', lineHeight: '1.2' }}
             >
               Peer-Tutor Connect
             </h1>
             <p
               className="text-gray-500 font-medium"
-              style={{ fontSize: "0.75rem" }}
+              style={{ fontSize: '0.75rem' }}
             >
               Stevens Institute of Technology
             </p>
@@ -132,27 +132,27 @@ const Header = () => {
         </div>
 
         {/* User Info and Actions */}
-        <div className="flex items-center" style={{ gap: "1rem" }}>
+        <div className="flex items-center" style={{ gap: '1rem' }}>
           {/* User Greeting */}
           <div
             className="hidden md:flex items-center bg-gradient-to-r from-teal-50 to-emerald-50"
             style={{
-              gap: "0.75rem",
-              padding: "0.5rem 1rem",
-              borderRadius: "0.75rem",
+              gap: '0.75rem',
+              padding: '0.5rem 1rem',
+              borderRadius: '0.75rem',
             }}
           >
             <div
               className="bg-gradient-to-br from-teal-600 to-emerald-600 flex items-center justify-center"
               style={{
-                width: "2.25rem",
-                height: "2.25rem",
-                borderRadius: "50%",
+                width: '2.25rem',
+                height: '2.25rem',
+                borderRadius: '50%',
               }}
             >
               <span
                 className="text-white font-bold"
-                style={{ fontSize: "0.875rem" }}
+                style={{ fontSize: '0.875rem' }}
               >
                 {user?.firstName?.charAt(0)}
                 {user?.lastName?.charAt(0)}
@@ -161,13 +161,13 @@ const Header = () => {
             <div>
               <p
                 className="text-gray-500 font-medium"
-                style={{ fontSize: "0.75rem" }}
+                style={{ fontSize: '0.75rem' }}
               >
                 Welcome back,
               </p>
               <p
                 className="font-bold text-gray-900"
-                style={{ fontSize: "0.875rem" }}
+                style={{ fontSize: '0.875rem' }}
               >
                 {user?.firstName} {user?.lastName}
               </p>
@@ -179,26 +179,26 @@ const Header = () => {
             <button
               onClick={() => setShowNotifications(!showNotifications)}
               className="relative text-gray-600 hover:text-teal-600 hover:bg-teal-50 transition-all group"
-              style={{ padding: "0.75rem", borderRadius: "0.75rem" }}
+              style={{ padding: '0.75rem', borderRadius: '0.75rem' }}
               aria-label="Notifications"
             >
               <Bell
-                style={{ width: "1.5rem", height: "1.5rem" }}
+                style={{ width: '1.5rem', height: '1.5rem' }}
                 className="group-hover:scale-110 transition-transform"
               />
               {notificationCount > 0 && (
                 <span
                   className="absolute bg-gradient-to-r from-red-500 to-pink-500 text-white font-bold flex items-center justify-center shadow-lg animate-pulse"
                   style={{
-                    top: "-0.25rem",
-                    right: "-0.25rem",
-                    width: "1.5rem",
-                    height: "1.5rem",
-                    borderRadius: "50%",
-                    fontSize: "0.75rem",
+                    top: '-0.25rem',
+                    right: '-0.25rem',
+                    width: '1.5rem',
+                    height: '1.5rem',
+                    borderRadius: '50%',
+                    fontSize: '0.75rem',
                   }}
                 >
-                  {notificationCount > 9 ? "9+" : notificationCount}
+                  {notificationCount > 9 ? '9+' : notificationCount}
                 </span>
               )}
             </button>
@@ -217,14 +217,14 @@ const Header = () => {
             onClick={handleLogout}
             className="flex items-center text-gray-700 hover:text-red-600 hover:bg-red-50 transition-all font-medium group"
             style={{
-              gap: "0.5rem",
-              padding: "0.625rem 1rem",
-              borderRadius: "0.75rem",
+              gap: '0.5rem',
+              padding: '0.625rem 1rem',
+              borderRadius: '0.75rem',
             }}
             aria-label="Logout"
           >
             <LogOut
-              style={{ width: "1.25rem", height: "1.25rem" }}
+              style={{ width: '1.25rem', height: '1.25rem' }}
               className="group-hover:scale-110 transition-transform"
             />
             <span className="hidden sm:inline">Logout</span>

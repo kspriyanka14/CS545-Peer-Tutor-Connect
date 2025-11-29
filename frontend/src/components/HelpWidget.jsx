@@ -3,9 +3,9 @@
  * Floating help button with user guide panel
  */
 
-import { useState, useRef, useEffect } from "react";
-import { createPortal } from "react-dom";
-import { HelpCircle, X } from "lucide-react";
+import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { HelpCircle, X } from 'lucide-react';
 
 const HelpWidget = () => {
   const [open, setOpen] = useState(false);
@@ -31,8 +31,8 @@ const HelpWidget = () => {
       setOpen(false);
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [open]);
 
   // Desktop help panel (card above the button)
@@ -41,20 +41,20 @@ const HelpWidget = () => {
       ref={desktopPanelRef}
       className="hidden md:block fixed right-6 bg-white shadow-xl border border-gray-200 z-40"
       style={{
-        bottom: "5.5rem",
-        width: "26rem",
-        maxWidth: "calc(100vw - 2rem)",
-        borderRadius: "0.75rem",
+        bottom: '5.5rem',
+        width: '26rem',
+        maxWidth: 'calc(100vw - 2rem)',
+        borderRadius: '0.75rem',
       }}
     >
       {/* Header with Close Button */}
       <div
         className="flex items-center justify-between border-b border-gray-100"
-        style={{ padding: "1.25rem" }}
+        style={{ padding: '1.25rem' }}
       >
         <h2
           className="font-bold text-gray-900"
-          style={{ fontSize: "1.125rem" }}
+          style={{ fontSize: '1.125rem' }}
         >
           How to use Peer-Tutor Connect
         </h2>
@@ -63,20 +63,20 @@ const HelpWidget = () => {
           onClick={() => setOpen(false)}
           aria-label="Close help guide"
           className="text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors flex-shrink-0"
-          style={{ padding: "0.5rem", borderRadius: "0.5rem" }}
+          style={{ padding: '0.5rem', borderRadius: '0.5rem' }}
         >
-          <X style={{ width: "1.25rem", height: "1.25rem" }} />
+          <X style={{ width: '1.25rem', height: '1.25rem' }} />
         </button>
       </div>
 
       {/* Content */}
-      <div style={{ padding: "1.25rem" }}>
+      <div style={{ padding: '1.25rem' }}>
         <ul
           className="text-gray-700 list-disc space-y-2"
           style={{
-            paddingLeft: "1.25rem",
-            fontSize: "0.9375rem",
-            lineHeight: "1.6",
+            paddingLeft: '1.25rem',
+            fontSize: '0.9375rem',
+            lineHeight: '1.6',
             margin: 0,
           }}
         >
@@ -85,7 +85,7 @@ const HelpWidget = () => {
             discussion board.
           </li>
           <li>
-            Use <strong>Search</strong> or the <strong>Unanswered</strong>{" "}
+            Use <strong>Search</strong> or the <strong>Unanswered</strong>{' '}
             filter to check if your question already exists.
           </li>
           <li>
@@ -109,16 +109,16 @@ const HelpWidget = () => {
         <div
           className="bg-teal-50 border border-teal-200"
           style={{
-            marginTop: "1rem",
-            padding: "0.875rem",
-            borderRadius: "0.5rem",
+            marginTop: '1rem',
+            padding: '0.875rem',
+            borderRadius: '0.5rem',
           }}
         >
           <p
             className="text-teal-800"
-            style={{ fontSize: "0.8125rem", lineHeight: "1.5" }}
+            style={{ fontSize: '0.8125rem', lineHeight: '1.5' }}
           >
-            <strong>Tip:</strong> You can reopen this guide anytime using the{" "}
+            <strong>Tip:</strong> You can reopen this guide anytime using the{' '}
             <strong>?</strong> button in the bottom-right corner.
           </p>
         </div>
@@ -137,25 +137,25 @@ const HelpWidget = () => {
         {/* Header with Close Button */}
         <div
           className="flex items-center justify-between bg-gradient-to-r from-teal-600 to-emerald-600 text-white"
-          style={{ padding: "1.25rem" }}
+          style={{ padding: '1.25rem' }}
         >
           <h3 className="font-bold text-xl">Help Guide</h3>
           <button
             onClick={() => setOpen(false)}
             className="text-white hover:bg-white/20 transition-colors"
-            style={{ padding: "0.5rem", borderRadius: "0.5rem" }}
+            style={{ padding: '0.5rem', borderRadius: '0.5rem' }}
             aria-label="Close help guide"
           >
-            <X style={{ width: "1.5rem", height: "1.5rem" }} />
+            <X style={{ width: '1.5rem', height: '1.5rem' }} />
           </button>
         </div>
 
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto" style={{ minHeight: 0 }}>
-          <div style={{ padding: "1.5rem" }}>
+          <div style={{ padding: '1.5rem' }}>
             <h2
               className="font-bold text-gray-900 mb-4"
-              style={{ fontSize: "1.125rem" }}
+              style={{ fontSize: '1.125rem' }}
             >
               How to use Peer-Tutor Connect
             </h2>
@@ -163,9 +163,9 @@ const HelpWidget = () => {
             <ul
               className="text-gray-700 list-disc space-y-3"
               style={{
-                paddingLeft: "1.5rem",
-                fontSize: "0.9375rem",
-                lineHeight: "1.7",
+                paddingLeft: '1.5rem',
+                fontSize: '0.9375rem',
+                lineHeight: '1.7',
                 margin: 0,
               }}
             >
@@ -174,7 +174,7 @@ const HelpWidget = () => {
                 discussion board.
               </li>
               <li>
-                Use <strong>Search</strong> or the <strong>Unanswered</strong>{" "}
+                Use <strong>Search</strong> or the <strong>Unanswered</strong>{' '}
                 filter to check if your question already exists.
               </li>
               <li>
@@ -198,14 +198,14 @@ const HelpWidget = () => {
             <div
               className="bg-teal-50 border border-teal-200"
               style={{
-                marginTop: "1.5rem",
-                padding: "1rem",
-                borderRadius: "0.5rem",
+                marginTop: '1.5rem',
+                padding: '1rem',
+                borderRadius: '0.5rem',
               }}
             >
               <p
                 className="text-teal-800"
-                style={{ fontSize: "0.9375rem", lineHeight: "1.6" }}
+                style={{ fontSize: '0.9375rem', lineHeight: '1.6' }}
               >
                 <strong>Tip:</strong> You can reopen this guide anytime using
                 the <strong>?</strong> button in the bottom-right corner.

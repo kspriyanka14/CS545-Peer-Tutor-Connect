@@ -3,8 +3,8 @@
  * Scroll to top button that appears after scrolling
  */
 
-import { useEffect, useState } from "react";
-import { ChevronUp } from "lucide-react";
+import { useEffect, useState } from 'react';
+import { ChevronUp } from 'lucide-react';
 
 const ScrollToTopButton = () => {
   const [visible, setVisible] = useState(false);
@@ -18,14 +18,14 @@ const ScrollToTopButton = () => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   };
 

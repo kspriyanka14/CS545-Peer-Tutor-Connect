@@ -3,23 +3,25 @@
  * Routing and layout
  */
 
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { AuthProvider, useAuth } from "./context/AuthContext";
-import Login from "./components/Login";
-import CoursesList from "./components/CoursesList";
-import QuestionsList from "./components/QuestionsList";
-import QuestionDetail from "./components/QuestionDetail";
-import QuestionForm from "./components/QuestionForm";
-
-//import ProtectedRoute from "./components/ProtectedRoute";
-
-import ProtectedRoute from "./components/ProtectedRoute";
-import HelpWidget from "./components/HelpWidget";
-import ScrollToTopButton from "./components/ScrollToTopButton";
-
-import Spinner from "./components/Spinner";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import Login from './components/Login';
+import CoursesList from './components/CoursesList';
+import QuestionsList from './components/QuestionsList';
+import QuestionDetail from './components/QuestionDetail';
+import QuestionForm from './components/QuestionForm';
+import ProtectedRoute from './components/ProtectedRoute';
+import HelpWidget from './components/HelpWidget';
+import ScrollToTopButton from './components/ScrollToTopButton';
+import Spinner from './components/Spinner';
 
 const AppRoutes = () => {
   const { loading } = useAuth();
@@ -34,8 +36,7 @@ const AppRoutes = () => {
     );
   }
 
-  const hideWidgets = location.pathname === "/";
-
+  const hideWidgets = location.pathname === '/';
 
   return (
     <>
@@ -90,9 +91,11 @@ const AppRoutes = () => {
       </Routes>
       {/* Global help widget, hidden on login */}
       {!hideWidgets && (
-        <><div className="fixed bottom-6 right-6 flex flex-col gap-4">
-          <HelpWidget />
-          <ScrollToTopButton /></div>
+        <>
+          <div className="fixed bottom-6 right-6 flex flex-col gap-4">
+            <HelpWidget />
+            <ScrollToTopButton />
+          </div>
         </>
       )}
     </>

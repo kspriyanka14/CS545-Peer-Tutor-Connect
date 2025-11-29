@@ -3,13 +3,13 @@
  * Dropdown list of recent notifications
  */
 
-import { useState, useEffect, useRef } from "react";
-import { createPortal } from "react-dom";
-import { useNavigate } from "react-router-dom";
-import { notificationsApi } from "../api/api";
-import { formatDistanceToNow } from "date-fns";
-import { CheckCheck, Inbox, X } from "lucide-react";
-import Spinner from "./Spinner";
+import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
+import { useNavigate } from 'react-router-dom';
+import { notificationsApi } from '../api/api';
+import { formatDistanceToNow } from 'date-fns';
+import { CheckCheck, Inbox, X } from 'lucide-react';
+import Spinner from './Spinner';
 
 const NotificationList = ({ onClose, onCountChange }) => {
   const [notifications, setNotifications] = useState([]);
@@ -26,7 +26,6 @@ const NotificationList = ({ onClose, onCountChange }) => {
 
     // Close dropdown when clicking outside
     const handleClickOutside = (event) => {
-
       const desktopEl = desktopDropdownRef.current;
       const mobileEl = mobileDropdownRef.current;
 
@@ -43,8 +42,8 @@ const NotificationList = ({ onClose, onCountChange }) => {
       onClose();
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [onClose]);
 
   const fetchNotifications = async () => {
@@ -58,7 +57,7 @@ const NotificationList = ({ onClose, onCountChange }) => {
         fetchedNotifications.filter((n) => !n.isRead).length || 0;
       onCountChange(unreadCount);
     } catch (error) {
-      console.error("Failed to fetch notifications:", error);
+      console.error('Failed to fetch notifications:', error);
     } finally {
       setLoading(false);
     }
@@ -77,7 +76,7 @@ const NotificationList = ({ onClose, onCountChange }) => {
       // Navigate to question
       navigate(`/questions/${notification.questionId}`);
     } catch (error) {
-      console.error("Failed to mark notification as read:", error);
+      console.error('Failed to mark notification as read:', error);
       // Still navigate even if marking as read fails
       onClose();
       navigate(`/questions/${notification.questionId}`);
@@ -90,7 +89,7 @@ const NotificationList = ({ onClose, onCountChange }) => {
       // Refresh the notification list
       await fetchNotifications();
     } catch (error) {
-      console.error("Failed to mark all as read:", error);
+      console.error('Failed to mark all as read:', error);
     }
   };
 
@@ -105,7 +104,7 @@ const NotificationList = ({ onClose, onCountChange }) => {
       {/* Header with Close Button */}
       <div
         className="flex items-center justify-between bg-gradient-to-r from-teal-600 to-emerald-600 text-white"
-        style={{ padding: "1.25rem" }}
+        style={{ padding: '1.25rem' }}
       >
         <h3 className="font-bold text-xl">Notifications</h3>
         <button
@@ -114,16 +113,16 @@ const NotificationList = ({ onClose, onCountChange }) => {
             onClose();
           }}
           className="text-white hover:bg-white/20 transition-colors"
-          style={{ padding: "0.5rem", borderRadius: "0.5rem" }}
+          style={{ padding: '0.5rem', borderRadius: '0.5rem' }}
           aria-label="Close notifications"
         >
-          <X style={{ width: "1.5rem", height: "1.5rem" }} />
+          <X style={{ width: '1.5rem', height: '1.5rem' }} />
         </button>
       </div>
 
       {/* Mark all as read - Mobile */}
       {notifications.some((n) => !n.isRead) && (
-        <div className="border-b border-gray-200" style={{ padding: "1rem" }}>
+        <div className="border-b border-gray-200" style={{ padding: '1rem' }}>
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -131,12 +130,12 @@ const NotificationList = ({ onClose, onCountChange }) => {
             }}
             className="w-full flex items-center justify-center bg-teal-50 hover:bg-teal-100 text-teal-600 font-semibold transition-colors"
             style={{
-              gap: "0.5rem",
-              padding: "0.75rem",
-              borderRadius: "0.5rem",
+              gap: '0.5rem',
+              padding: '0.75rem',
+              borderRadius: '0.5rem',
             }}
           >
-            <CheckCheck style={{ width: "1.125rem", height: "1.125rem" }} />
+            <CheckCheck style={{ width: '1.125rem', height: '1.125rem' }} />
             Mark all as read
           </button>
         </div>
@@ -145,22 +144,22 @@ const NotificationList = ({ onClose, onCountChange }) => {
       {/* Content - Scrollable */}
       <div className="flex-1 overflow-y-auto" style={{ minHeight: 0 }}>
         {loading ? (
-          <div style={{ padding: "3rem", textAlign: "center" }}>
+          <div style={{ padding: '3rem', textAlign: 'center' }}>
             <Spinner size="md" />
           </div>
         ) : notifications.length === 0 ? (
           <div
             className="flex flex-col items-center justify-center text-gray-500"
-            style={{ padding: "3rem" }}
+            style={{ padding: '3rem' }}
           >
             <Inbox
               className="text-gray-400"
-              style={{ width: "4rem", height: "4rem", marginBottom: "1rem" }}
+              style={{ width: '4rem', height: '4rem', marginBottom: '1rem' }}
             />
             <p className="text-lg">No notifications</p>
           </div>
         ) : (
-          <div className="divide-y divide-gray-100" style={{ width: "100%" }}>
+          <div className="divide-y divide-gray-100" style={{ width: '100%' }}>
             {notifications.slice(0, 10).map((notification) => (
               <div
                 key={notification._id}
@@ -168,39 +167,41 @@ const NotificationList = ({ onClose, onCountChange }) => {
                   e.stopPropagation();
                   handleNotificationClick(notification);
                 }}
-                className={`hover:bg-gray-50 active:bg-gray-100 cursor-pointer transition ${!notification.isRead ? "bg-teal-50" : ""
-                  }`}
-                style={{ padding: "1.25rem" }}
+                className={`hover:bg-gray-50 active:bg-gray-100 cursor-pointer transition ${
+                  !notification.isRead ? 'bg-teal-50' : ''
+                }`}
+                style={{ padding: '1.25rem' }}
                 role="button"
                 tabIndex={0}
               >
-                <div className="flex" style={{ gap: "1rem" }}>
+                <div className="flex" style={{ gap: '1rem' }}>
                   {/* Unread indicator */}
                   {!notification.isRead && (
                     <div
                       className="bg-teal-600 flex-shrink-0"
                       style={{
-                        width: "0.625rem",
-                        height: "0.625rem",
-                        borderRadius: "50%",
-                        marginTop: "0.5rem",
+                        width: '0.625rem',
+                        height: '0.625rem',
+                        borderRadius: '50%',
+                        marginTop: '0.5rem',
                       }}
                     ></div>
                   )}
 
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <p
-                      className={`${!notification.isRead
-                        ? "font-semibold text-gray-900"
-                        : "text-gray-700"
-                        }`}
-                      style={{ fontSize: "0.9375rem", lineHeight: "1.5" }}
+                      className={`${
+                        !notification.isRead
+                          ? 'font-semibold text-gray-900'
+                          : 'text-gray-700'
+                      }`}
+                      style={{ fontSize: '0.9375rem', lineHeight: '1.5' }}
                     >
                       {notification.message}
                     </p>
                     <p
                       className="text-gray-500"
-                      style={{ fontSize: "0.8125rem", marginTop: "0.375rem" }}
+                      style={{ fontSize: '0.8125rem', marginTop: '0.375rem' }}
                     >
                       {formatDistanceToNow(new Date(notification.createdAt), {
                         addSuffix: true,
@@ -225,11 +226,11 @@ const NotificationList = ({ onClose, onCountChange }) => {
         className="hidden md:block absolute bg-white shadow-2xl border border-gray-200 overflow-y-auto slide-down"
         style={{
           right: 0,
-          marginTop: "0.75rem",
-          width: "24rem",
-          maxWidth: "calc(100vw - 1rem)",
-          borderRadius: "0.75rem",
-          maxHeight: "min(32rem, calc(100vh - 6rem))",
+          marginTop: '0.75rem',
+          width: '24rem',
+          maxWidth: 'calc(100vw - 1rem)',
+          borderRadius: '0.75rem',
+          maxHeight: 'min(32rem, calc(100vh - 6rem))',
           zIndex: 50,
         }}
         role="region"
@@ -239,16 +240,16 @@ const NotificationList = ({ onClose, onCountChange }) => {
         <div
           className="border-b border-gray-100 flex items-center justify-between sticky bg-white/95 backdrop-blur-sm"
           style={{
-            padding: "1rem",
+            padding: '1rem',
             top: 0,
             zIndex: 10,
-            borderTopLeftRadius: "0.75rem",
-            borderTopRightRadius: "0.75rem",
+            borderTopLeftRadius: '0.75rem',
+            borderTopRightRadius: '0.75rem',
           }}
         >
           <h3
             className="font-bold text-gray-900"
-            style={{ fontSize: "1.125rem" }}
+            style={{ fontSize: '1.125rem' }}
           >
             Notifications
           </h3>
@@ -256,9 +257,9 @@ const NotificationList = ({ onClose, onCountChange }) => {
             <button
               onClick={handleMarkAllAsRead}
               className="text-teal-600 hover:text-teal-700 flex items-center"
-              style={{ fontSize: "0.875rem", gap: "0.25rem" }}
+              style={{ fontSize: '0.875rem', gap: '0.25rem' }}
             >
-              <CheckCheck style={{ width: "1rem", height: "1rem" }} />
+              <CheckCheck style={{ width: '1rem', height: '1rem' }} />
               Mark all as read
             </button>
           )}
@@ -267,20 +268,20 @@ const NotificationList = ({ onClose, onCountChange }) => {
         {/* Content */}
         <div className="divide-y divide-gray-100">
           {loading ? (
-            <div style={{ padding: "2rem" }}>
+            <div style={{ padding: '2rem' }}>
               <Spinner size="md" />
             </div>
           ) : notifications.length === 0 ? (
             <div
               className="text-center text-gray-500"
-              style={{ padding: "2rem" }}
+              style={{ padding: '2rem' }}
             >
               <Inbox
                 className="text-gray-400 mx-auto"
                 style={{
-                  width: "3rem",
-                  height: "3rem",
-                  marginBottom: "0.5rem",
+                  width: '3rem',
+                  height: '3rem',
+                  marginBottom: '0.5rem',
                 }}
               />
               <p>No notifications</p>
@@ -290,37 +291,39 @@ const NotificationList = ({ onClose, onCountChange }) => {
               <div
                 key={notification._id}
                 onClick={() => handleNotificationClick(notification)}
-                className={`hover:bg-gray-50 cursor-pointer transition ${!notification.isRead ? "bg-teal-50" : ""
-                  }`}
-                style={{ padding: "1rem" }}
+                className={`hover:bg-gray-50 cursor-pointer transition ${
+                  !notification.isRead ? 'bg-teal-50' : ''
+                }`}
+                style={{ padding: '1rem' }}
               >
-                <div className="flex" style={{ gap: "0.75rem" }}>
+                <div className="flex" style={{ gap: '0.75rem' }}>
                   {/* Unread indicator */}
                   {!notification.isRead && (
                     <div
                       className="bg-teal-600 flex-shrink-0"
                       style={{
-                        width: "0.5rem",
-                        height: "0.5rem",
-                        borderRadius: "50%",
-                        marginTop: "0.5rem",
+                        width: '0.5rem',
+                        height: '0.5rem',
+                        borderRadius: '50%',
+                        marginTop: '0.5rem',
                       }}
                     ></div>
                   )}
 
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <p
-                      className={`${!notification.isRead
-                        ? "font-semibold text-gray-900"
-                        : "text-gray-700"
-                        }`}
-                      style={{ fontSize: "0.875rem" }}
+                      className={`${
+                        !notification.isRead
+                          ? 'font-semibold text-gray-900'
+                          : 'text-gray-700'
+                      }`}
+                      style={{ fontSize: '0.875rem' }}
                     >
                       {notification.message}
                     </p>
                     <p
                       className="text-gray-500"
-                      style={{ fontSize: "0.75rem", marginTop: "0.25rem" }}
+                      style={{ fontSize: '0.75rem', marginTop: '0.25rem' }}
                     >
                       {formatDistanceToNow(new Date(notification.createdAt), {
                         addSuffix: true,
@@ -337,11 +340,11 @@ const NotificationList = ({ onClose, onCountChange }) => {
         {notifications.length > 10 && (
           <div
             className="border-t border-gray-200 text-center"
-            style={{ padding: "0.5rem" }}
+            style={{ padding: '0.5rem' }}
           >
             <button
               className="text-teal-600 hover:text-teal-700"
-              style={{ fontSize: "0.875rem" }}
+              style={{ fontSize: '0.875rem' }}
             >
               View all notifications
             </button>
@@ -350,7 +353,7 @@ const NotificationList = ({ onClose, onCountChange }) => {
       </div>
 
       {/* Mobile: Full-screen Menu - Render via portal to break out of positioning context */}
-      {typeof window !== "undefined" &&
+      {typeof window !== 'undefined' &&
         createPortal(renderMobileMenu(), document.body)}
     </>
   );
