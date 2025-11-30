@@ -123,7 +123,7 @@ const Header = () => {
               Peer-Tutor Connect
             </h1>
             <p
-              className="text-gray-500 font-medium"
+              className="text-gray-600 font-medium"
               style={{ fontSize: '0.75rem' }}
             >
               Stevens Institute of Technology
@@ -160,7 +160,7 @@ const Header = () => {
             </div>
             <div>
               <p
-                className="text-gray-500 font-medium"
+                className="text-gray-600 font-medium"
                 style={{ fontSize: '0.75rem' }}
               >
                 Welcome back,

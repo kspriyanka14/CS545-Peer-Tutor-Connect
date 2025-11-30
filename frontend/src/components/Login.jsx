@@ -288,7 +288,7 @@ const Login = () => {
               }}
             >
               <p
-                className="text-teal-700 font-mono bg-white"
+                className="text-teal-900 font-mono bg-white"
                 style={{
                   fontSize: '0.75rem',
                   padding: '0.5rem',
@@ -298,7 +298,7 @@ const Login = () => {
                 Email: aditi.sharma@stevens.edu
               </p>
               <p
-                className="text-teal-700 font-mono bg-white"
+                className="text-teal-900 font-mono bg-white"
                 style={{
                   fontSize: '0.75rem',
                   padding: '0.5rem',
@@ -309,7 +309,7 @@ const Login = () => {
               </p>
             </div>
             <p
-              className="text-teal-600 italic"
+              className="text-teal-800 italic"
               style={{ fontSize: '0.75rem', marginTop: '0.75rem' }}
             >
               All seeded accounts use password123

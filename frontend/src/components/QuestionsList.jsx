@@ -142,10 +142,12 @@ const QuestionsList = () => {
                 My Courses
               </Link>
             </li>
-            <ChevronRight
-              className="text-gray-400"
-              style={{ width: '1rem', height: '1rem' }}
-            />
+            <li aria-hidden="true">
+              <ChevronRight
+                className="text-gray-400"
+                style={{ width: '1rem', height: '1rem' }}
+              />
+            </li>
             <li className="text-gray-700 font-semibold">
               {course ? course.courseCode : 'Loading...'}
             </li>
@@ -286,15 +288,18 @@ const QuestionsList = () => {
               {searchQuery && (
                 <button
                   onClick={clearSearch}
-                  className="absolute text-gray-400 hover:text-gray-600 transition-colors"
+                  className="absolute text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors flex items-center justify-center"
                   style={{
-                    right: '0.75rem',
+                    right: '0.5rem',
                     top: '50%',
                     transform: 'translateY(-50%)',
+                    width: '1.5rem',
+                    height: '1.5rem',
+                    borderRadius: '0.25rem',
                   }}
                   aria-label="Clear search"
                 >
-                  <X style={{ width: '1.125rem', height: '1.125rem' }} />
+                  <X style={{ width: '1rem', height: '1rem' }} />
                 </button>
               )}
             </div>
@@ -377,12 +382,12 @@ const QuestionsList = () => {
                 className="text-gray-400"
                 style={{ width: '5rem', height: '5rem', marginBottom: '1rem' }}
               />
-              <h3
+              <h2
                 className="font-semibold text-gray-900"
                 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}
               >
                 No questions yet
-              </h3>
+              </h2>
               <p className="text-gray-600" style={{ marginBottom: '1.5rem' }}>
                 Be the first to ask a question in this course!
               </p>
@@ -431,17 +436,17 @@ const QuestionsList = () => {
                       className="flex items-center"
                       style={{ gap: '0.5rem', marginBottom: '0.375rem' }}
                     >
-                      <h3
+                      <h2
                         className="font-bold text-gray-900 group-hover:text-teal-600 transition-colors line-clamp-1"
                         style={{ fontSize: '1rem' }}
                       >
                         {question.title}
-                      </h3>
+                      </h2>
                       {/* Resolved Badge */}
                       {question.isResolved && (
                         <div className="flex-shrink-0">
                           <div
-                            className="flex items-center bg-green-100 text-green-700 font-semibold"
+                            className="flex items-center bg-green-100 text-green-900 font-semibold"
                             style={{
                               gap: '0.25rem',
                               padding: '0.125rem 0.5rem',

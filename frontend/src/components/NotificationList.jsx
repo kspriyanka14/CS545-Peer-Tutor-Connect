@@ -126,7 +126,7 @@ const NotificationList = ({ onClose, onCountChange }) => {
               e.stopPropagation();
               handleMarkAllAsRead();
             }}
-            className="w-full flex items-center justify-center bg-teal-50 hover:bg-teal-100 text-teal-600 font-semibold transition-colors"
+            className="w-full flex items-center justify-center bg-teal-50 hover:bg-teal-100 text-teal-800 font-semibold transition-colors"
             style={{
               gap: '0.5rem',
               padding: '0.75rem',
@@ -147,7 +147,7 @@ const NotificationList = ({ onClose, onCountChange }) => {
           </div>
         ) : notifications.length === 0 ? (
           <div
-            className="flex flex-col items-center justify-center text-gray-500"
+            className="flex flex-col items-center justify-center text-gray-600"
             style={{ padding: '3rem' }}
           >
             <Inbox
@@ -198,7 +198,7 @@ const NotificationList = ({ onClose, onCountChange }) => {
                       {notification.message}
                     </p>
                     <p
-                      className="text-gray-500"
+                      className="text-gray-600"
                       style={{ fontSize: '0.8125rem', marginTop: '0.375rem' }}
                     >
                       {formatDistanceToNow(new Date(notification.createdAt), {
@@ -253,7 +253,7 @@ const NotificationList = ({ onClose, onCountChange }) => {
           {notifications.some((n) => !n.isRead) && (
             <button
               onClick={handleMarkAllAsRead}
-              className="text-teal-600 hover:text-teal-700 flex items-center"
+              className="text-teal-800 hover:text-teal-900 flex items-center"
               style={{ fontSize: '0.875rem', gap: '0.25rem' }}
             >
               <CheckCheck style={{ width: '1rem', height: '1rem' }} />
@@ -270,7 +270,7 @@ const NotificationList = ({ onClose, onCountChange }) => {
             </div>
           ) : notifications.length === 0 ? (
             <div
-              className="text-center text-gray-500"
+              className="text-center text-gray-600"
               style={{ padding: '2rem' }}
             >
               <Inbox
@@ -319,7 +319,7 @@ const NotificationList = ({ onClose, onCountChange }) => {
                       {notification.message}
                     </p>
                     <p
-                      className="text-gray-500"
+                      className="text-gray-600"
                       style={{ fontSize: '0.75rem', marginTop: '0.25rem' }}
                     >
                       {formatDistanceToNow(new Date(notification.createdAt), {

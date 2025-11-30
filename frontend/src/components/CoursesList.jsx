@@ -81,12 +81,12 @@ const CoursesList = () => {
                 className="text-gray-400"
                 style={{ width: '5rem', height: '5rem', marginBottom: '1rem' }}
               />
-              <h3
+              <h2
                 className="font-semibold text-gray-900"
                 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}
               >
                 No courses found
-              </h3>
+              </h2>
               <p className="text-gray-600">
                 You are not enrolled in any courses yet.
               </p>
@@ -130,29 +130,31 @@ const CoursesList = () => {
                     flexDirection: 'column',
                   }}
                 >
-                  <h3
+                  <h2
                     className="font-bold text-white tracking-tight line-clamp-2 leading-tight"
                     style={{ fontSize: '1.5rem', lineHeight: '1.3' }}
                   >
                     {course.courseCode} {course.courseName}
-                  </h3>
+                  </h2>
                   <div
-                    className="flex items-center flex-wrap text-white/90 font-medium"
+                    className="flex items-center flex-nowrap text-white/90 font-medium whitespace-nowrap overflow-hidden min-w-0"
                     style={{
                       gap: '0.5rem',
                       fontSize: '0.875rem',
                       marginTop: 'auto',
                     }}
                   >
-                    <span>Section {course.section}</span>
-                    <span>•</span>
-                    <span>{course.term}</span>
+                    <span className="flex-shrink-0">
+                      Section {course.section}
+                    </span>
+                    <span className="flex-shrink-0">•</span>
+                    <span className="flex-shrink-0">{course.term}</span>
                     {/* New Questions Badge */}
                     {course.newQuestionCount > 0 && (
                       <>
-                        <span>•</span>
+                        <span className="flex-shrink-0">•</span>
                         <span
-                          className="flex items-center bg-white/90 text-teal-700 font-semibold"
+                          className="flex items-center bg-white/90 text-teal-700 font-semibold flex-shrink-0"
                           style={{
                             gap: '0.25rem',
                             padding: '0.125rem 0.5rem',
@@ -189,7 +191,7 @@ const CoursesList = () => {
                   >
                     <div>
                       <p
-                        className="text-gray-500 uppercase tracking-wide font-semibold"
+                        className="text-gray-600 uppercase tracking-wide font-semibold"
                         style={{ fontSize: '0.75rem', marginBottom: '0.25rem' }}
                       >
                         Instructor
@@ -203,7 +205,7 @@ const CoursesList = () => {
                     </div>
                     <div>
                       <p
-                        className="text-gray-500 uppercase tracking-wide font-semibold"
+                        className="text-gray-600 uppercase tracking-wide font-semibold"
                         style={{ fontSize: '0.75rem', marginBottom: '0.25rem' }}
                       >
                         Department
@@ -223,7 +225,7 @@ const CoursesList = () => {
                     style={{ paddingTop: '1rem', marginTop: 'auto' }}
                   >
                     <span
-                      className="text-teal-600 font-semibold group-hover:text-teal-700"
+                      className="text-teal-800 font-semibold group-hover:text-teal-900"
                       style={{ fontSize: '0.875rem' }}
                     >
                       View Discussion Board

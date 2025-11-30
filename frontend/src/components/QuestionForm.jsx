@@ -160,10 +160,12 @@ const QuestionForm = ({ isEdit = false }) => {
                 My Courses
               </Link>
             </li>
-            <ChevronRight
-              className="text-gray-400"
-              style={{ width: '1rem', height: '1rem' }}
-            />
+            <li aria-hidden="true">
+              <ChevronRight
+                className="text-gray-400"
+                style={{ width: '1rem', height: '1rem' }}
+              />
+            </li>
             <li>
               <Link
                 to={`/courses/${courseId}/questions`}
@@ -172,10 +174,12 @@ const QuestionForm = ({ isEdit = false }) => {
                 {course ? course.courseCode : 'Course'}
               </Link>
             </li>
-            <ChevronRight
-              className="text-gray-400"
-              style={{ width: '1rem', height: '1rem' }}
-            />
+            <li aria-hidden="true">
+              <ChevronRight
+                className="text-gray-400"
+                style={{ width: '1rem', height: '1rem' }}
+              />
+            </li>
             <li className="text-gray-700 font-semibold">
               {isEdit ? 'Edit Question' : 'New Question'}
             </li>
@@ -241,7 +245,7 @@ const QuestionForm = ({ isEdit = false }) => {
               </label>
               <span
                 className={`font-medium ${
-                  title.length > 200 ? 'text-red-600' : 'text-gray-500'
+                  title.length > 200 ? 'text-red-600' : 'text-gray-600'
                 }`}
                 style={{ fontSize: '0.875rem' }}
               >
@@ -292,7 +296,7 @@ const QuestionForm = ({ isEdit = false }) => {
               </label>
               <span
                 className={`font-medium ${
-                  content.length > 2000 ? 'text-red-600' : 'text-gray-500'
+                  content.length > 2000 ? 'text-red-600' : 'text-gray-600'
                 }`}
                 style={{ fontSize: '0.875rem' }}
               >

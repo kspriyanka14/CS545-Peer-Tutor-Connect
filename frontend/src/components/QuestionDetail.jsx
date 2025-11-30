@@ -271,10 +271,12 @@ const QuestionDetail = () => {
                 My Courses
               </Link>
             </li>
-            <ChevronRight
-              className="text-gray-400"
-              style={{ width: '1rem', height: '1rem' }}
-            />
+            <li aria-hidden="true">
+              <ChevronRight
+                className="text-gray-400"
+                style={{ width: '1rem', height: '1rem' }}
+              />
+            </li>
             <li>
               <Link
                 to={`/courses/${question.courseId}/questions`}
@@ -283,10 +285,12 @@ const QuestionDetail = () => {
                 {course ? course.courseCode : 'Course'}
               </Link>
             </li>
-            <ChevronRight
-              className="text-gray-400"
-              style={{ width: '1rem', height: '1rem' }}
-            />
+            <li aria-hidden="true">
+              <ChevronRight
+                className="text-gray-400"
+                style={{ width: '1rem', height: '1rem' }}
+              />
+            </li>
             <li
               className="text-gray-700 font-semibold truncate"
               style={{ maxWidth: '30rem' }}
@@ -320,7 +324,7 @@ const QuestionDetail = () => {
             {/* Resolved Badge */}
             {question.isResolved && (
               <div
-                className="flex items-center bg-gradient-to-r from-emerald-50 to-green-50 text-green-700 border border-green-200 font-semibold flex-shrink-0"
+                className="flex items-center bg-gradient-to-r from-emerald-50 to-green-50 text-green-900 border border-green-200 font-semibold flex-shrink-0"
                 style={{
                   gap: '0.25rem',
                   padding: '0.25rem 0.625rem',
@@ -377,7 +381,7 @@ const QuestionDetail = () => {
                   : question.posterName || 'Unknown'}
               </span>
               <span className="text-gray-400">•</span>
-              <span className="text-gray-500">
+              <span className="text-gray-600">
                 {formatDistanceToNow(new Date(question.createdAt), {
                   addSuffix: true,
                 })}
@@ -433,7 +437,7 @@ const QuestionDetail = () => {
                       id: questionId,
                     })
                   }
-                  className="flex items-center border border-red-200 bg-gradient-to-r from-red-50 to-rose-50 hover:from-red-100 hover:to-rose-100 text-red-600 font-semibold transition-colors"
+                  className="flex items-center border border-red-200 bg-gradient-to-r from-red-50 to-rose-50 hover:from-red-100 hover:to-rose-100 text-red-800 font-semibold transition-colors"
                   style={{
                     gap: '0.25rem',
                     padding: '0.25rem 0.625rem',
@@ -628,7 +632,7 @@ const QuestionDetail = () => {
               >
                 No responses yet
               </p>
-              <p className="text-gray-500" style={{ fontSize: '0.875rem' }}>
+              <p className="text-gray-600" style={{ fontSize: '0.875rem' }}>
                 Be the first to help answer this question!
               </p>
             </div>
@@ -701,7 +705,7 @@ const QuestionDetail = () => {
                             : response.posterName || 'Unknown'}
                         </span>
                         <span className="text-gray-400">•</span>
-                        <span className="text-gray-500">
+                        <span className="text-gray-600">
                           {formatDistanceToNow(new Date(response.createdAt), {
                             addSuffix: true,
                           })}
@@ -710,7 +714,7 @@ const QuestionDetail = () => {
                           <>
                             <span className="text-gray-400">•</span>
                             <div
-                              className="flex items-center bg-yellow-100 text-yellow-700 font-semibold"
+                              className="flex items-center bg-yellow-100 text-yellow-900 font-semibold"
                               style={{
                                 gap: '0.25rem',
                                 padding: '0.125rem 0.375rem',
@@ -742,8 +746,8 @@ const QuestionDetail = () => {
                             }
                             className={`flex items-center font-semibold transition-colors ${
                               response.isHelpful
-                                ? 'border border-yellow-300 bg-yellow-50 text-yellow-700 hover:bg-yellow-100'
-                                : 'border border-gray-300 bg-white text-gray-600 hover:bg-gray-50'
+                                ? 'border border-yellow-300 bg-yellow-50 text-yellow-900 hover:bg-yellow-100'
+                                : 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
                             }`}
                             style={{
                               gap: '0.25rem',
@@ -783,7 +787,7 @@ const QuestionDetail = () => {
                                   id: response._id,
                                 })
                               }
-                              className="flex items-center border border-red-300 bg-red-50 hover:bg-red-100 text-red-600 font-semibold transition-colors"
+                              className="flex items-center border border-red-300 bg-red-50 hover:bg-red-100 text-red-800 font-semibold transition-colors"
                               style={{
                                 gap: '0.25rem',
                                 padding: '0.25rem 0.5rem',

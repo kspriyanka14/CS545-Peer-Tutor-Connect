@@ -215,6 +215,15 @@ select:focus {
   color: #6b7280;
 }
 
+/* Toast notification AAA contrast fix */
+.Toastify__toast {
+  color: #374151 !important; /* text-gray-700 for AAA compliance (7:1+ contrast) */
+}
+
+.Toastify__toast-body {
+  color: #374151 !important; /* text-gray-700 for AAA compliance */
+}
+
 /* Print styles */
 @media print {
   .no-print {

@@ -101,7 +101,7 @@ const ResponseForm = ({
             </label>
             <span
               className={`font-medium ${
-                content.length > 1500 ? 'text-red-600' : 'text-gray-600'
+                content.length > 1500 ? 'text-red-600' : 'text-gray-700'
               }`}
               style={{ fontSize: '0.875rem' }}
             >
@@ -137,7 +137,7 @@ const ResponseForm = ({
             </p>
           )}
           <p
-            className="text-gray-600 font-medium flex items-center flex-wrap"
+            className="text-gray-700 font-medium flex items-center flex-wrap"
             style={{ marginTop: '0.5rem', fontSize: '0.75rem', gap: '0.25rem' }}
           >
             <Lightbulb

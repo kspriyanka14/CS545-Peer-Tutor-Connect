@@ -27,7 +27,7 @@ This frontend application handles all client-side interactions for the peer tuto
 - Real-time notification system with unread count
 - Anonymous posting functionality
 - Responsive design supporting mobile-first approach
-- Accessibility features following WCAG AA guidelines
+- Accessibility features following WCAG 2.2 AAA guidelines (most strict level)
 
 ## Tech Stack
 
