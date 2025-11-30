@@ -14,6 +14,7 @@ import {
   ChevronRight,
   Search,
   X,
+  RotateCcw,
 } from 'lucide-react';
 import Header from './Header';
 import Spinner from './Spinner';
@@ -27,17 +28,22 @@ const QuestionsList = () => {
   const [filterOption, setFilterOption] = useState('all'); // all, answered, unanswered
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
-  const [isSorting, setIsSorting] = useState(false); // Track if we're just sorting (don't show spinner)
   const navigate = useNavigate();
+
+  // Check if filters are in default state
+  const isDefaultView =
+    filterOption === 'all' && searchQuery === '' && sortOption === 'newest';
 
   useEffect(() => {
     fetchCourse();
     fetchQuestions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseId, sortOption]);
 
   // Apply filter and search whenever they change
   useEffect(() => {
     applyFilterAndSearch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterOption, searchQuery, allQuestions]);
 
   const fetchCourse = async () => {
@@ -54,8 +60,6 @@ const QuestionsList = () => {
       // Only show loading spinner on initial load, not during sort changes
       if (allQuestions.length === 0) {
         setLoading(true);
-      } else {
-        setIsSorting(true);
       }
       const response = await questionsApi.getQuestionsByCourse(
         courseId,
@@ -67,7 +71,6 @@ const QuestionsList = () => {
       console.error('Error fetching questions:', error);
     } finally {
       setLoading(false);
-      setIsSorting(false);
     }
   };
 
@@ -108,6 +111,12 @@ const QuestionsList = () => {
 
   const handleFilterChange = (filter) => {
     setFilterOption(filter);
+  };
+
+  const handleReset = () => {
+    setFilterOption('all');
+    setSearchQuery('');
+    setSortOption('newest');
   };
 
   return (
@@ -290,29 +299,54 @@ const QuestionsList = () => {
               )}
             </div>
 
-            {/* Sort Dropdown */}
+            {/* Sort + Reset Group */}
             <div className="flex items-center" style={{ gap: '0.5rem' }}>
-              <label
-                htmlFor="sort"
-                className="text-gray-700 font-semibold"
-                style={{ fontSize: '0.875rem', whiteSpace: 'nowrap' }}
-              >
-                Sort by:
-              </label>
-              <select
-                id="sort"
-                value={sortOption}
-                onChange={handleSortChange}
-                className="border-2 border-gray-300 bg-gray-50 hover:bg-gray-100 focus:ring-2 focus:ring-teal-500 font-medium transition-colors"
+              {/* Sort Dropdown */}
+              <div className="flex items-center" style={{ gap: '0.5rem' }}>
+                <label
+                  htmlFor="sort"
+                  className="text-gray-700 font-semibold"
+                  style={{ fontSize: '0.875rem', whiteSpace: 'nowrap' }}
+                >
+                  Sort by:
+                </label>
+                <select
+                  id="sort"
+                  value={sortOption}
+                  onChange={handleSortChange}
+                  className="border-2 border-gray-300 bg-gray-50 hover:bg-gray-100 focus:ring-2 focus:ring-teal-500 font-medium transition-colors"
+                  style={{
+                    padding: '0.5rem 0.75rem',
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                  }}
+                >
+                  <option value="newest">Newest First</option>
+                  <option value="oldest">Oldest First</option>
+                </select>
+              </div>
+
+              {/* Reset Filters Button */}
+              <button
+                onClick={handleReset}
+                disabled={isDefaultView}
+                className={`flex items-center font-semibold transition-all ${
+                  isDefaultView
+                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300'
+                }`}
                 style={{
+                  gap: '0.375rem',
                   padding: '0.5rem 0.75rem',
                   borderRadius: '0.5rem',
-                  fontSize: '0.875rem',
+                  fontSize: '0.8125rem',
+                  whiteSpace: 'nowrap',
                 }}
+                aria-label="Reset all filters to default"
               >
-                <option value="newest">Newest First</option>
-                <option value="oldest">Oldest First</option>
-              </select>
+                <RotateCcw style={{ width: '0.875rem', height: '0.875rem' }} />
+                Reset Filters
+              </button>
             </div>
           </div>
         </div>

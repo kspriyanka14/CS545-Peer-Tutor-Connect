@@ -6,7 +6,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { coursesApi } from '../api/api';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, BookOpen } from 'lucide-react';
 import Header from './Header';
 import Spinner from './Spinner';
 

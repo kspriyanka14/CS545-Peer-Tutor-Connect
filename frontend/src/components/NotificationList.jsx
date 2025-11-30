@@ -14,8 +14,6 @@ import Spinner from './Spinner';
 const NotificationList = ({ onClose, onCountChange }) => {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
-  //const dropdownRef = useRef(null);
-
   const desktopDropdownRef = useRef(null);
   const mobileDropdownRef = useRef(null);
 
@@ -44,6 +42,7 @@ const NotificationList = ({ onClose, onCountChange }) => {
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onClose]);
 
   const fetchNotifications = async () => {
@@ -96,7 +95,6 @@ const NotificationList = ({ onClose, onCountChange }) => {
   // Mobile menu content - wrapped in a function to ensure fresh renders
   const renderMobileMenu = () => (
     <div
-      //ref={dropdownRef}
       ref={mobileDropdownRef}
       className="md:hidden fixed inset-0 bg-white flex flex-col"
       style={{ zIndex: 9999 }}
@@ -221,7 +219,6 @@ const NotificationList = ({ onClose, onCountChange }) => {
     <>
       {/* Desktop: Dropdown */}
       <div
-        //ref={dropdownRef}
         ref={desktopDropdownRef}
         className="hidden md:block absolute bg-white shadow-2xl border border-gray-200 overflow-y-auto slide-down"
         style={{

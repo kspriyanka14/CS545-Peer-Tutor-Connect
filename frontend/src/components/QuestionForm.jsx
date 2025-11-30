@@ -30,6 +30,7 @@ const QuestionForm = ({ isEdit = false }) => {
     if (isEdit && questionId) {
       fetchQuestion();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, questionId, courseId]);
 
   const fetchCourse = async () => {

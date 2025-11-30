@@ -80,8 +80,6 @@ export const notificationsApi = {
   getNotifications: (unreadOnly = true) =>
     api.get('/notifications', { params: { unreadOnly } }),
 
-  getNotificationCount: () => api.get('/notifications/count'),
-
   markAsRead: (notificationId) =>
     api.patch(`/notifications/${notificationId}/read`),
 

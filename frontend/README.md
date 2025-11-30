@@ -2,7 +2,20 @@
 
 The React-based single-page application (SPA) for Peer-Tutor Connect, providing an intuitive and responsive user interface for students to post questions, provide responses, and receive real-time notifications. Built with Vite and styled using Tailwind CSS v4.
 
-## Overview
+## Table of Contents
+
+- [Description](#description)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Component Breakdown](#component-breakdown)
+- [Installation and Setup](#installation-and-setup)
+- [Environment Variables](#environment-variables)
+- [API Integration](#api-integration)
+- [Authentication Flow](#authentication-flow)
+- [Styling](#styling)
+- [Troubleshooting](#troubleshooting)
+
+## Description
 
 This frontend application handles all client-side interactions for the peer tutoring platform. It communicates with the Express backend via RESTful API calls, manages authentication state using React Context, and provides a seamless user experience across all device sizes (mobile, tablet, desktop).
 
@@ -62,7 +75,7 @@ frontend/
 ├── package.json                  # Dependencies and scripts
 ├── vite.config.js                # Vite configuration with proxy
 ├── tailwind.config.js            # Tailwind CSS configuration
-├── .eslintrc.js                  # ESLint configuration
+├── eslint.config.js              # ESLint v9 flat configuration
 ├── src/
 │   ├── main.jsx                  # React application entry point
 │   ├── App.jsx                   # Main app component with routing
@@ -87,7 +100,7 @@ frontend/
 └── public/                       # Static assets (if any)
 ```
 
-### Component Breakdown
+## Component Breakdown
 
 **Public Components:**
 
@@ -214,9 +227,9 @@ Unlike the backend, the frontend does not require a separate `.env` file for loc
 The `vite.config.js` file contains critical settings for the development environment:
 
 ```javascript
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [
@@ -226,8 +239,8 @@ export default defineConfig({
   server: {
     port: 5173, // Frontend runs on port 5173
     proxy: {
-      "/api": {
-        target: "http://localhost:3000", // Backend API URL
+      '/api': {
+        target: 'http://localhost:3000', // Backend API URL
         changeOrigin: true, // Change origin to target URL
       },
     },
@@ -278,13 +291,13 @@ The frontend communicates with the backend through a centralized API client buil
 ### Axios Instance Configuration
 
 ```javascript
-import axios from "axios";
+import axios from 'axios';
 
 const api = axios.create({
-  baseURL: "/api", // All requests start with /api
+  baseURL: '/api', // All requests start with /api
   withCredentials: true, // Send cookies with every request
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 ```
@@ -305,7 +318,7 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       // Unauthorized - redirect to login
-      window.location.href = "/";
+      window.location.href = '/';
     }
     return Promise.reject(error);
   }
@@ -326,9 +339,9 @@ All API calls are organized into domain-specific objects:
 ```javascript
 export const authApi = {
   login: (email, password) =>
-    api.post("/auth/login", { universityEmail: email, password }),
-  logout: () => api.post("/auth/logout"),
-  checkAuth: () => api.get("/auth/check"),
+    api.post('/auth/login', { universityEmail: email, password }),
+  logout: () => api.post('/auth/logout'),
+  checkAuth: () => api.get('/auth/check'),
 };
 ```
 
@@ -336,7 +349,7 @@ export const authApi = {
 
 ```javascript
 export const coursesApi = {
-  getCourses: () => api.get("/courses"),
+  getCourses: () => api.get('/courses'),
   getCourseById: (courseId) => api.get(`/courses/${courseId}`),
 };
 ```
@@ -345,10 +358,10 @@ export const coursesApi = {
 
 ```javascript
 export const questionsApi = {
-  getQuestionsByCourse: (courseId, sort = "newest") =>
+  getQuestionsByCourse: (courseId, sort = 'newest') =>
     api.get(`/questions/${courseId}`, { params: { sort } }),
   getQuestionById: (questionId) => api.get(`/questions/detail/${questionId}`),
-  createQuestion: (data) => api.post("/questions", data),
+  createQuestion: (data) => api.post('/questions', data),
   updateQuestion: (questionId, data) =>
     api.patch(`/questions/${questionId}`, data),
   deleteQuestion: (questionId) => api.delete(`/questions/${questionId}`),
@@ -359,9 +372,9 @@ export const questionsApi = {
 
 ```javascript
 export const responsesApi = {
-  getResponses: (questionId, sort = "newest") =>
+  getResponses: (questionId, sort = 'newest') =>
     api.get(`/responses/${questionId}`, { params: { sort } }),
-  createResponse: (data) => api.post("/responses", data),
+  createResponse: (data) => api.post('/responses', data),
   updateResponse: (responseId, data) =>
     api.patch(`/responses/${responseId}`, data),
   deleteResponse: (responseId) => api.delete(`/responses/${responseId}`),
@@ -375,11 +388,10 @@ export const responsesApi = {
 ```javascript
 export const notificationsApi = {
   getNotifications: (unreadOnly = true) =>
-    api.get("/notifications", { params: { unreadOnly } }),
-  getNotificationCount: () => api.get("/notifications/count"),
+    api.get('/notifications', { params: { unreadOnly } }),
   markAsRead: (notificationId) =>
     api.patch(`/notifications/${notificationId}/read`),
-  markAllAsRead: () => api.patch("/notifications/read-all"),
+  markAllAsRead: () => api.patch('/notifications/read-all'),
 };
 ```
 
@@ -388,18 +400,18 @@ export const notificationsApi = {
 **Example: Login Component**
 
 ```javascript
-import { authApi } from "../api/api";
-import { useAuth } from "../context/AuthContext";
+import { authApi } from '../api/api';
+import { useAuth } from '../context/AuthContext';
 
 const handleLogin = async (e) => {
   e.preventDefault();
   try {
     const response = await authApi.login(email, password);
     // Context handles state update
-    toast.success("Login successful!");
-    navigate("/courses");
+    toast.success('Login successful!');
+    navigate('/courses');
   } catch (error) {
-    toast.error(error.response?.data?.error || "Login failed");
+    toast.error(error.response?.data?.error || 'Login failed');
   }
 };
 ```
@@ -407,7 +419,7 @@ const handleLogin = async (e) => {
 **Example: Fetching Courses**
 
 ```javascript
-import { coursesApi } from "../api/api";
+import { coursesApi } from '../api/api';
 
 useEffect(() => {
   const fetchCourses = async () => {
@@ -415,7 +427,7 @@ useEffect(() => {
       const response = await coursesApi.getCourses();
       setCourses(response.data);
     } catch (error) {
-      toast.error("Failed to load courses");
+      toast.error('Failed to load courses');
     }
   };
   fetchCourses();
@@ -454,15 +466,15 @@ The application uses session-based authentication with React Context for global 
 The `AuthContext.jsx` provides global authentication state to all components:
 
 ```javascript
-import { createContext, useContext, useState, useEffect } from "react";
-import { authApi } from "../api/api";
+import { createContext, useContext, useState, useEffect } from 'react';
+import { authApi } from '../api/api';
 
 const AuthContext = createContext(null);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth must be used within AuthProvider");
+    throw new Error('useAuth must be used within AuthProvider');
   }
   return context;
 };
@@ -483,7 +495,7 @@ export const AuthProvider = ({ children }) => {
         setUser(response.data.student);
       }
     } catch (error) {
-      console.error("Auth check failed:", error);
+      console.error('Auth check failed:', error);
     } finally {
       setLoading(false);
     }
@@ -613,8 +625,8 @@ Redirects to login (/)
 The `ProtectedRoute.jsx` component wraps authenticated routes:
 
 ```javascript
-import { Navigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
@@ -673,7 +685,7 @@ Tailwind CSS v4 is integrated using the `@tailwindcss/vite` plugin, which provid
 **vite.config.js:**
 
 ```javascript
-import tailwindcss from "@tailwindcss/vite";
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [
@@ -687,20 +699,20 @@ export default defineConfig({
 
 ```javascript
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
         primary: {
-          50: "#f0f9ff",
-          100: "#e0f2fe",
-          500: "#0ea5e9",
-          600: "#0284c7",
-          700: "#0369a1",
+          50: '#f0f9ff',
+          100: '#e0f2fe',
+          500: '#0ea5e9',
+          600: '#0284c7',
+          700: '#0369a1',
         },
-        success: "#22c55e",
-        error: "#ef4444",
-        warning: "#f59e0b",
+        success: '#22c55e',
+        error: '#ef4444',
+        warning: '#f59e0b',
       },
     },
   },
@@ -713,7 +725,7 @@ export default {
 The `src/index.css` file defines custom CSS variables for consistent design tokens:
 
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   /* Custom color palette */
@@ -778,19 +790,6 @@ Reusable utility classes are defined in `index.css` for common patterns:
 .card-hover:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-xl);
-}
-
-/* Button base styles */
-.btn-base {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-md);
-  font-weight: 500;
-  transition: all var(--transition-base);
-  cursor: pointer;
-  border: none;
 }
 ```
 
@@ -931,7 +930,7 @@ Skip to main content link:
 The application uses Lucide React for consistent icon design:
 
 ```jsx
-import { Bell, LogOut, Search, Send } from "lucide-react";
+import { Bell, LogOut, Search, Send } from 'lucide-react';
 
 <button className="relative p-2 hover:bg-gray-100 rounded-full">
   <Bell className="w-6 h-6 text-gray-600" />
@@ -996,7 +995,7 @@ d. Verify backend CORS configuration allows `http://localhost:5173`:
 // backend/app.js
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: 'http://localhost:5173',
     credentials: true,
   })
 );
@@ -1017,7 +1016,7 @@ a. Ensure `withCredentials: true` in Axios instance:
 ```javascript
 // src/api/api.js
 const api = axios.create({
-  baseURL: "/api",
+  baseURL: '/api',
   withCredentials: true, // Must be true
 });
 ```
@@ -1047,7 +1046,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      sameSite: "lax",
+      sameSite: 'lax',
       maxAge: 1000 * 60 * 60 * 48,
     },
   })
@@ -1067,15 +1066,15 @@ app.use(
 a. Verify Tailwind directives in `src/index.css`:
 
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 ```
 
 b. Check `tailwind.config.js` content paths:
 
 ```javascript
 content: [
-  "./index.html",
-  "./src/**/*.{js,ts,jsx,tsx}",  // Must include all component files
+  './index.html',
+  './src/**/*.{js,ts,jsx,tsx}',  // Must include all component files
 ],
 ```
 
@@ -1093,7 +1092,7 @@ npm run dev
 d. Check for CSS import in `main.jsx`:
 
 ```javascript
-import "./index.css"; // Must be imported
+import './index.css'; // Must be imported
 ```
 
 e. Clear browser cache and hard reload:
@@ -1122,11 +1121,11 @@ Look for red error messages
 b. Verify React Router setup in `App.jsx`:
 
 ```javascript
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from 'react-router-dom';
 
 const App = () => (
   <BrowserRouter>
-    {" "}
+    {' '}
     {/* Must wrap entire app */}
     <AuthProvider>
       <Routes>{/* routes */}</Routes>
@@ -1138,10 +1137,10 @@ const App = () => (
 c. Ensure `main.jsx` renders to correct element:
 
 ```javascript
-import ReactDOM from "react-dom/client";
-import App from "./App";
+import ReactDOM from 'react-dom/client';
+import App from './App';
 
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
 ```
 
 d. Check `index.html` has root element:
@@ -1171,12 +1170,12 @@ npm run dev
 a. Use `useNavigate` hook instead of `<a>` tags:
 
 ```javascript
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const MyComponent = () => {
   const navigate = useNavigate();
 
-  return <button onClick={() => navigate("/courses")}>Go to Courses</button>;
+  return <button onClick={() => navigate('/courses')}>Go to Courses</button>;
 };
 ```
 
@@ -1201,7 +1200,7 @@ c. Check for typos in route paths:
 
 ```javascript
 // Make sure paths match exactly
-navigate("/courses"); // Not '/course' or '/Courses'
+navigate('/courses'); // Not '/course' or '/Courses'
 ```
 
 #### 6. Build Errors
@@ -1225,7 +1224,7 @@ b. Verify all imports are correct:
 
 ```javascript
 // Use .jsx extension for JSX files
-import Login from "./components/Login.jsx"; // Not just './components/Login'
+import Login from './components/Login.jsx'; // Not just './components/Login'
 ```
 
 c. Check for unused imports:
@@ -1294,7 +1293,7 @@ db.notifications.find({ recipientId: ObjectId("...") })
 a. Verify Lucide React import:
 
 ```javascript
-import { Bell, LogOut } from "lucide-react"; // Named imports
+import { Bell, LogOut } from 'lucide-react'; // Named imports
 
 <Bell className="w-6 h-6" />; // Use as component
 ```
@@ -1327,13 +1326,13 @@ c. Reference public assets with `/` prefix:
 a. Use date-fns for consistent formatting:
 
 ```javascript
-import { formatDistanceToNow, format } from "date-fns";
+import { formatDistanceToNow, format } from 'date-fns';
 
 // Relative time: "2 hours ago"
 formatDistanceToNow(new Date(question.createdAt), { addSuffix: true });
 
 // Formatted date: "Jan 5, 2025, 3:45 PM"
-format(new Date(question.createdAt), "MMM d, yyyy, h:mm a");
+format(new Date(question.createdAt), 'MMM d, yyyy, h:mm a');
 ```
 
 b. Ensure dates are valid before formatting:
@@ -1364,7 +1363,7 @@ const handleSubmit = async (e) => {
 b. Ensure form state is updated:
 
 ```javascript
-const [formData, setFormData] = useState({ title: "", content: "" });
+const [formData, setFormData] = useState({ title: '', content: '' });
 
 <input
   value={formData.title}
@@ -1376,82 +1375,7 @@ c. Check for empty required fields:
 
 ```javascript
 if (!formData.title || !formData.content) {
-  toast.error("Please fill in all required fields");
+  toast.error('Please fill in all required fields');
   return;
 }
 ```
-
-## Development Tips
-
-### Best Practices
-
-1. **Use React Context for global state** (auth, theme, etc.)
-2. **Keep components small and focused** (single responsibility)
-3. **Extract reusable logic into custom hooks**
-4. **Use Tailwind utility classes** (avoid custom CSS unless necessary)
-5. **Handle loading and error states gracefully**
-6. **Test on multiple screen sizes** (mobile, tablet, desktop)
-7. **Use semantic HTML** for accessibility (`<main>`, `<nav>`, `<button>`)
-8. **Avoid inline styles** (use Tailwind classes instead)
-9. **Use React Router's Link component** for internal navigation
-10. **Keep API calls in separate module** (`src/api/api.js`)
-
-### Performance Optimization
-
-- Use React.memo() for expensive components
-- Lazy load routes with React.lazy()
-- Optimize images (use WebP format)
-- Minimize bundle size by avoiding large dependencies
-- Use Vite's code splitting features
-
-### Accessibility Checklist
-
-- All interactive elements have focus styles
-- Images have alt text
-- Forms have labels
-- Color contrast meets WCAG AA (4.5:1)
-- Keyboard navigation works for all features
-- Screen reader announcements for dynamic content
-
-## Production Deployment
-
-### Build for Production
-
-```bash
-npm run build
-```
-
-This creates optimized static files in the `dist/` folder:
-
-- Minified JavaScript
-- Optimized CSS
-- Code splitting
-- Source maps
-
-### Preview Production Build Locally
-
-```bash
-npm run preview
-```
-
-Serves the production build on `http://localhost:4173` for testing.
-
-### Deployment Options
-
-**1. Static Hosting (Vercel, Netlify, GitHub Pages)**
-
-- Deploy `dist/` folder as static site
-- Configure environment variables for production API URL
-- Set up custom domain and SSL
-
-**2. Docker Deployment**
-
-- Create Dockerfile with multi-stage build
-- Serve with Nginx or serve npm package
-- Configure API proxy in production
-
-**3. Backend Integration**
-
-- Serve frontend from Express backend
-- Build frontend and move `dist/` to backend `public/` folder
-- Single deployment for both frontend and backend

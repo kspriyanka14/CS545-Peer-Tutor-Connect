@@ -91,7 +91,7 @@ const HelpWidget = () => {
         >
           <li>
             <strong>Course Selection:</strong> Select a <strong>course</strong>{' '}
-            from "My Courses" to view its Q&A board.
+            from &quot;My Courses&quot; to view its Q&A board.
           </li>
           <li>
             <strong>Finding Questions:</strong> Search{' '}
@@ -243,7 +243,7 @@ const HelpWidget = () => {
             >
               <li>
                 <strong>Course Selection:</strong> Select a{' '}
-                <strong>course</strong> from "My Courses" to view its Q&A board.
+                <strong>course</strong> from &quot;My Courses&quot; to view its Q&A board.
               </li>
               <li>
                 <strong>Finding Questions:</strong> Search{' '}

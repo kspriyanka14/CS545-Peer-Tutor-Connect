@@ -101,6 +101,7 @@ const QuestionDetail = () => {
 
   useEffect(() => {
     fetchQuestion();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questionId, sortResponses]);
 
   // Auto-scroll to response form when it opens
@@ -159,7 +160,7 @@ const QuestionDetail = () => {
         () => navigate(`/courses/${question.courseId}/questions`),
         1000
       );
-    } catch (error) {
+    } catch (_error) {
       toast.error('Failed to delete question');
     } finally {
       setDeleteModal({ isOpen: false, type: null, id: null });
@@ -176,7 +177,7 @@ const QuestionDetail = () => {
         question.isResolved ? 'Marked as unresolved' : 'Marked as resolved',
         { autoClose: 1500 }
       );
-    } catch (error) {
+    } catch (_error) {
       toast.error('Failed to update question', { autoClose: 1500 });
     }
   };
@@ -186,7 +187,7 @@ const QuestionDetail = () => {
       await responsesApi.deleteResponse(responseId);
       toast.success('Response deleted successfully', { autoClose: 1500 });
       fetchQuestion();
-    } catch (error) {
+    } catch (_error) {
       toast.error('Failed to delete response', { autoClose: 1500 });
     } finally {
       setDeleteModal({ isOpen: false, type: null, id: null });
@@ -208,7 +209,7 @@ const QuestionDetail = () => {
         currentState ? 'Removed helpful mark' : 'Marked as helpful',
         { autoClose: 1500 }
       );
-    } catch (error) {
+    } catch (_error) {
       toast.error('Failed to update response', { autoClose: 1500 });
     }
   };
